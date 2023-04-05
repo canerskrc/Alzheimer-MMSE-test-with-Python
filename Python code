@@ -1,1 +1,49 @@
 
+def mmse_test():
+    
+    # Soruları ve puanları
+    questions = [
+        ('Neredeyiz?', 1),
+        ('Hangi yıl?', 1),
+        ('Hangi ay?', 1),
+        ('Hangi gün?', 1),
+        ('Saat kaç?', 1),
+        ('İsim ve soyisim?', 1),
+        ('Bir elmayı nasıl soyarsınız?', 1),
+        ('Okunması istenen üç kelime:', 3),
+        ('Tekrar edilen üç kelime:', 3),
+        ('Geçmişte yaptığınız birkaç şeyi hatırlayın:', 3),
+        ('Sayıları geri sayın:', 5),
+        ('Önceki soruda kaç sayı saydınız?', 1),
+        ('Bu kağıdı iki parmakla tutun:', 1),
+        ('Bu kağıdı buruşturun:', 1),
+        ('Bu kağıdı buruşturup masaya koyun:', 1)
+    ]
+    
+    score = 0
+    
+    # Soruları sormak ve cevapları almak
+    for q, p in questions:
+        answer = input(q + ' ')
+        if answer.lower() == 'pass':
+            continue
+        elif answer.lower() == 'apple':
+            score += 1
+        elif answer.lower() in ['yeniden', 'tekrar', 'tekrarlayın']:
+            score += p
+        elif answer.isdigit():
+            score += int(answer)
+        elif answer.lower() == 'iki':
+            score += 1
+        elif 'buruştur' in answer.lower():
+            score += 1
+    
+    # Sonucu göstermek
+    if score >= 27:
+        print('Normal bilişsel fonksiyon')
+    elif 24 <= score <= 26:
+        print('Hafif bilişsel bozukluk')
+    elif 18 <= score <= 23:
+        print('Hafiften orta dereceye kadar bilişsel bozukluk')
+    elif score <= 17:
+        print('Orta dereceye kadar bilişsel bozukluk')
